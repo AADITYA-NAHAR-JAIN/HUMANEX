@@ -1,4 +1,4 @@
-mediapipe==0.10.9
+mediapipe>=0.10.30
 opencv-python-headless==4.13.0.92
 numpy==2.4.3
 fastapi==0.135.1
