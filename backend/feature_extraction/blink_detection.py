@@ -2,9 +2,6 @@ import cv2
 import numpy as np
 import mediapipe as mp
 
-if not hasattr(mp, "solutions"):
-    raise Exception("Mediapipe not loaded properly")
-
 mp_face_mesh = mp.solutions.face_mesh
 
 # Eye landmark indices
