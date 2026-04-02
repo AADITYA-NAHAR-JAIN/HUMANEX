@@ -25,6 +25,17 @@ class FrameData(BaseModel):
 def root():
     return {"message": "HUMANEX API is live"}
 
+@app.get("/")
+def home():
+    return {"status": "HUMANEX backend running", "message": "Use POST /verify for human verification"}
+
+if not frames.frames:
+    return {
+        "human_score": 0,
+        "blink_count": 0,
+        "status": "No input provided (demo mode)"
+    }
+
 @app.post("/verify")
 def verify(frame: FrameData):
     blink_count = 0
@@ -76,6 +87,12 @@ def verify(frame: FrameData):
         except Exception as e:
             print("Error processing frame:", e)
             continue
+
+    return {
+        "human_score": round(blink_count * 0.1, 2),
+        "blink_count": blink_count,
+        "status": "Human-like behavior detected" if blink_count > 0 else "Blink not detected"
+    }
 
     print("FINAL -> Blink:", blink_count, "Movement:", movement_count)
 
