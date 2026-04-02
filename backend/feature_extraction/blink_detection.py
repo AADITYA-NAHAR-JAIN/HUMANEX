@@ -1,11 +1,10 @@
 import cv2
 import mediapipe as mp
-from mediapipe.python.solutions import face_mesh
 import numpy as np
 
-mp_face_mesh = face_mesh
+mp_face_mesh = mp.solutions.face_mesh
 
-# Eye landmark indices (MediaPipe)
+# Eye landmark indices
 LEFT_EYE = [33, 160, 158, 133, 153, 144]
 RIGHT_EYE = [362, 385, 387, 263, 373, 380]
 
