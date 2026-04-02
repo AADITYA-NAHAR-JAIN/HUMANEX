@@ -21,6 +21,10 @@ class FrameData(BaseModel):
     frames: list[str]
     challenge: str
 
+@app.get("/")
+def root():
+    return {"message": "HUMANEX API is live"}
+
 @app.post("/verify")
 def verify(frame: FrameData):
     blink_count = 0
