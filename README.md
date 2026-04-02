@@ -1,277 +1,156 @@
 # HUMANEX – Verifying Life Beyond Pixels
 
-HUMANEX is a multi-modal human verification system designed to determine whether an interacting entity is a **real human or a synthetic AI system**.
+HUMANEX is a real-time human verification system designed to determine whether an interacting entity is a **real human or a synthetic AI system**.
 
-The system focuses on **human verification rather than identity verification**. 
-Instead of determining who the user is, HUMANEX attempts to verify whether the interacting entity is biologically and behaviorally human.
-
-This project is being developed to explore solutions for the challenge: *Detecting the Real Human*
-
-**"FinTech - Trust in a Synthetic World"**
+Unlike traditional identity verification systems, HUMANEX focuses on **liveness and behavioral verification**, ensuring that the entity interacting with a system exhibits natural human behavior.
 
 ---
 
 ## Problem Statement
 
-Advancements in artificial intelligence have made it increasingly difficult to differentiate between real humans and AI-generated entities.
-
-Technologies such as:
-
+With the rise of:
 - Deepfake videos
+- AI-generated avatars
 - Voice cloning
-- AI avatars
-- Conversational bots
+- Automated bots
 
-can convincingly impersonate real individuals. This creates significant risks in environments where trust is critical, such as financial services and digital communication platforms. Traditional verification mechanisms like CAPTCHA, OTP, or static facial recognition are often insufficient to guarantee that the interacting entity is truly human.
+it has become increasingly difficult to distinguish between real humans and synthetic entities.
 
-*HUMANEX aims to address this problem by analyzing signals that are difficult for AI systems to replicate naturally.*
-
----
-
-## Proposed Solution
-
-HUMANEX attempts to verify human presence using multiple categories of signals derived from natural human behavior and physiology.
-
-The current design explores three main signal groups:
-
-### Biological Signals
-
-Human physiological movements often contain subtle patterns that synthetic systems struggle to replicate.
-
-Examples include:
-- Blink rate and eyelid movement
-- Eye movement randomness
-- Facial micro-movements
-- Head pose variation
-
-These signals can help identify unnatural or overly smooth motion often produced by synthetic avatars or deepfake systems.
-
-### Speech Signals
-
-Human speech typically contains natural irregularities.
-
-Examples include:
-- Breathing intervals
-- Speech pauses
-- Pitch variation
-- Speaking speed variability
-
-Synthetic voices frequently lack natural breathing patterns and hesitation.
-
-### Behavioral Signals
-
-Humans interact with systems in unpredictable ways, while automated systems often behave more deterministically.
-
-Potential signals include:
-- Response latency
-- Typing rhythm variability
-- Conversational randomness
-- Motion entropy
-
-These behavioral signals may help detect **AI agents interacting on digital platforms**.
+Traditional methods like CAPTCHA, OTP, or static facial recognition fail to guarantee **true human presence**.
 
 ---
 
-## Human Behavioral Entropy Engine (Concept)
+## Solution
 
-One component currently being explored is the **Human Behavioral Entropy Engine (HBEE)**.
+HUMANEX uses **multi-frame behavioral analysis** to verify human presence in real-time.
 
-The idea is based on the observation that:
-- Human interactions tend to be irregular and unpredictable.
-- Automated systems often produce consistent and deterministic patterns.
+Instead of relying on static inputs, the system analyzes:
 
-HBEE would measure behavioral entropy using signals such as:
-- Response delay variance
-- Typing rhythm variability
-- Conversational entropy
-- Motion randomness
+- Eye blink patterns
+- Head movement
+- Temporal behavior across frames
 
-Higher behavioral entropy may indicate **human interaction patterns**, while lower entropy may indicate automated systems.
-
-This concept is still **under investigation as part of the system design**.
+This makes it significantly harder for synthetic systems to spoof.
 
 ---
 
-## Dynamic Liveness Challenge (Planned)
+## Key Features
 
-The system design also includes the idea of **dynamic liveness challenges**.
-
-Example interaction:
-- Blink twice
-- Look in a specific direction
-- Say the number displayed on screen
-
-The system would then analyze:
-- Reaction time
-- Gesture correctness
-- Speech patterns
-
-The goal is to combine **vision, speech, and behavioral signals simultaneously**, making it difficult for synthetic systems to imitate.
+- Real-time webcam-based verification
+- Multi-frame analysis (not single image)
+- Blink detection (biological signal)
+- Head movement detection (behavioral signal)
+- Dynamic challenge-based verification
+- Human probability scoring system
 
 ---
 
-## System Architecture 
+## How It Works
+
+1. User opens the system
+2. A random challenge is generated:
+   - Blink your eyes
+   - Move your head
+3. Multiple frames are captured
+4. Backend processes:
+   - Blink detection
+   - Head movement detection
+5. System evaluates response
+6. Outputs:
+   - Human Verified 
+   - Suspicious 
+
+---
+
+## Core Idea
+
+HUMANEX is based on the principle that:
+
+> “Human behavior is naturally inconsistent and difficult to replicate artificially.”
+
+By analyzing **temporal behavioral signals**, the system moves beyond traditional static verification methods.
+
+---
+
+## System Architecture
+```
+User (Webcam Input)
+        │
+        ▼
+Frontend (React + WebRTC)
+        │
+        ▼
+Frame Capture (Multi-frame)
+        │
+        ▼
+API Call (FastAPI Backend)
+        │
+        ▼
+Processing Layer
+   ├── Biological Signals (Blink)
+   ├── Behavioral Signals (Head Movement)
+        │
+        ▼
+Decision Engine
+        │
+        ▼
+Human Score + Status
+        │
+        ▼
+Frontend Display (Verified / Suspicious)
 ```
 
-User Device (Camera + Microphone)
-        │
-        ▼
-Data Capture (WebRTC / Browser APIs)
-        │
-        ▼
-Feature Extraction
-├── Vision Processing
-├── Audio Processing
-└── Behavioral Analysis
-        │
-        ▼
-Feature Fusion
-        │
-        ▼
-Machine Learning Classifier
-        │
-        ▼
-Human Probability Score
-        │
-        ▼
-Verification Result
-```
-
-This architecture is currently **conceptual and subject to change as development progresses.**
+---
 
 ---
 
 ## Tech Stack
 
-The current design explores the following technologies:
-
 ### Frontend
 - React.js
-- WebRTC
 - JavaScript
+- WebRTC
 
 ### Backend
-- Python
 - FastAPI
+- Python
 
 ### Computer Vision
 - OpenCV
 - MediaPipe
 
-### Audio Processing
-- Librosa
-- PyAudio
-
-### Machine Learning
-- Scikit-learn
-- XGBoost
-
-### Deployment
-- Docker
-- Kubernetes
-- AWS
-
----
-
-## Project Structure
-```
-HUMANEX/
-│
-├── frontend/
-│   ├── public/
-│   │   └── index.html
-│   │
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── CameraCapture.js
-│   │   │   ├── AudioCapture.js
-│   │   │   ├── ChallengePrompt.js
-│   │   │   └── ResultDisplay.js
-│   │   │
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   │
-│   │   ├── pages/
-│   │   │   └── VerificationPage.js
-│   │   │
-│   │   ├── App.js
-│   │   └── index.js
-│   │
-│   └── package.json
-│
-├── backend/
-│   │
-│   ├── api/
-│   │   └── main.py
-│   │
-│   ├── services/
-│   │   ├── vision_service.py
-│   │   ├── audio_service.py
-│   │   ├── behavioral_service.py
-│   │   └── verification_service.py
-│   │
-│   ├── feature_extraction/
-│   │   ├── blink_detection.py
-│   │   ├── head_pose.py
-│   │   ├── speech_features.py
-│   │   └── reaction_time.py
-│   │
-│   ├── ml_models/
-│   │   ├── train_model.py
-│   │   ├── classifier.pkl
-│   │   └── predict.py
-│   │
-│   ├── utils/
-│   │   ├── config.py
-│   │   ├── logger.py
-│   │   └── helpers.py
-│   │
-│   └── requirements.txt
-│
-├── datasets/
-│   ├── human_samples/
-│   └── synthetic_samples/
-│
-├── docker/
-│   ├── Dockerfile.backend
-│   ├── Dockerfile.frontend
-│   └── docker-compose.yml
-│
-├── k8s/
-│   ├── deployment.yaml
-│   ├── service.yaml
-│   └── ingress.yaml
-│
-├── scripts/
-│   ├── data_collection.py
-│   └── preprocessing.py
-│
-├── docs/
-│   ├── architecture.md
-│   └── workflow.md
-│
-├── tests/
-│   ├── test_vision.py
-│   ├── test_audio.py
-│   └── test_verification.py
-│
-├── README.md
-└── .gitignore
-```
 ---
 
 ## Project Status
-Early development stage
 
-Current repository includes:
-- Initial architecture design
-- Project structure
-- System documentation
+Functional prototype:
 
-Upcoming milestones:
-- Feature extraction implementation
-- machine learning model training 
-- real-time verification prototype
-- cloud deployment pipeline
+- Real-time verification working  
+- Frontend ↔ Backend integration complete  
+- Challenge-based system implemented  
 
 ---
+
+## Future Work
+
+- Audio-based verification (speech + breathing patterns)
+- Behavioral entropy analysis
+- Reaction time measurement
+- Machine learning-based classifier
+- Cloud deployment (Docker + Kubernetes)
+
+---
+
+## Use Cases
+
+- FinTech authentication
+- Online exam proctoring
+- Bot detection systems
+- Secure digital interactions
+
+---
+
+## Key Insight
+
+> HUMANEX shifts verification from *“Who are you?”*  
+> to *“Are you truly human?”*
