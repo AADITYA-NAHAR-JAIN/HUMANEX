@@ -1,14 +1,29 @@
 # HUMANEX – Verifying Life Beyond Pixels
 
-HUMANEX is a real-time human verification system designed to determine whether an interacting entity is a **real human or a synthetic AI system**.
+HUMANEX is a real-time human verification system designed to detect whether an interacting entity is a **real human or a synthetic AI system**, using **multi-frame behavioral analysis.**
 
-Unlike traditional identity verification systems, HUMANEX focuses on **liveness and behavioral verification**, ensuring that the entity interacting with a system exhibits natural human behavior.
+Unlike traditional identity verification systems, HUMANEX focuses on **liveness and behavioral verification**, ensuring the presence of natural human behavior instead of static identity checks.
 
 ---
 
-## Problem Statement
+## Live Deployment:
+
+### Frontend (Vercel)
+```
+https://humanex-ten.vercel.app
+```
+### Backend API (Render)
+```
+https://humanex.onrender.com
+```
+*Note: Backend runs on free tier -> first request may take ~30-50 seconds (cold start)*
+
+---
+
+## Problem Statement:
 
 With the rise of:
+
 - Deepfake videos
 - AI-generated avatars
 - Voice cloning
@@ -16,53 +31,62 @@ With the rise of:
 
 it has become increasingly difficult to distinguish between real humans and synthetic entities.
 
-Traditional methods like CAPTCHA, OTP, or static facial recognition fail to guarantee **true human presence**.
+Traditional methods (CAPTCHA, OTP, static facial recognition) fail to guarantee **true human presence**.
 
 ---
 
-## Solution
+## Proposed Solution:
 
-HUMANEX uses **multi-frame behavioral analysis** to verify human presence in real-time.
+HUMANEX uses **multi-frame behavioral verification** instead of static inputs.
 
-Instead of relying on static inputs, the system analyzes:
+The system analyzes:
 
-- Eye blink patterns
-- Head movement
-- Temporal behavior across frames
+- Eye blink patterns (Biological signal)
+- Head movement (Behavioral Signal)
+- Temporal consistency across frames
 
 This makes it significantly harder for synthetic systems to spoof.
 
 ---
 
-## Key Features
+## Key Features:
 
 - Real-time webcam-based verification
-- Multi-frame analysis (not single image)
-- Blink detection (biological signal)
-- Head movement detection (behavioral signal)
+- Multi-frame analysis 
+- Blink detection
+- Head movement detection 
 - Dynamic challenge-based verification
 - Human probability scoring system
+- Fully deployed full-stack app
 
 ---
 
-## How It Works
+## API Usage:
 
-1. User opens the system
-2. A random challenge is generated:
-   - Blink your eyes
-   - Move your head
-3. Multiple frames are captured
-4. Backend processes:
-   - Blink detection
-   - Head movement detection
-5. System evaluates response
-6. Outputs:
-   - Human Verified 
-   - Suspicious 
+### Endpoint
+```
+POST /verify
+```
+### Request Body
+```
+{
+        "frames": ["base64_image1", "base64_image2"],
+        "challenge": "blink"
+}
+```
+### Response
+```
+{
+        "human_score": 95,
+        "blink_count": 2,
+        "movement_count": null,
+        "status": "Human Verified"
+}
+```
 
 ---
 
-## Core Idea
+## Core Idea:
 
 HUMANEX is based on the principle that:
 
@@ -72,7 +96,7 @@ By analyzing **temporal behavioral signals**, the system moves beyond traditiona
 
 ---
 
-## System Architecture
+## System Architecture:
 ```
 User (Webcam Input)
         │
@@ -102,36 +126,60 @@ Frontend Display (Verified / Suspicious)
 
 ---
 
----
-
-## Tech Stack
+## Tech Stack:
 
 ### Frontend
+
 - React.js
 - JavaScript
 - WebRTC
 
 ### Backend
+
 - FastAPI
 - Python
 
 ### Computer Vision
+
 - OpenCV
 - MediaPipe
 
 ---
 
-## Project Status
+## Setup Instructions:
 
-Functional prototype:
+### Backend
+```
+cd backend
+pip install -r requirements.txt
+uvicorn api.main:app --reload
+```
 
+### Frontend
+```
+cd frontend
+npm install
+npm run dev
+```
+---
+
+## Project Status:
+
+- Fully Functional prototype:
 - Real-time verification working  
-- Frontend ↔ Backend integration complete  
-- Challenge-based system implemented  
+- Frontend <-> Backend deployed
 
 ---
 
-## Future Work
+## Known Limitations:
+
+- Free-tier backend may sleep (cold start delay)
+- Performance depends on lighting and camera quality
+- Basic CV logic (no deep learning yet)
+
+---
+
+## Future Improvements:
 
 - Audio-based verification (speech + breathing patterns)
 - Behavioral entropy analysis
@@ -141,7 +189,7 @@ Functional prototype:
 
 ---
 
-## Use Cases
+## Use Cases:
 
 - FinTech authentication
 - Online exam proctoring
@@ -150,7 +198,7 @@ Functional prototype:
 
 ---
 
-## Key Insight
+## Key Insight:
 
 > HUMANEX shifts verification from *“Who are you?”*  
 > to *“Are you truly human?”*
